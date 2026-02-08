@@ -79,3 +79,43 @@ for (var i = 1; i <= 3; i++) {
 > * Closure: Stores a reference to the outer variable.
 > * The Trap: If that variable changes before the closure runs (like in a var loop), the closure sees the final value.
 > * The Fix: Use let to create a new lexical environment for every iteration of the loop.
+
+# 1. What is a Closure?
+> A closure is the combination of a function bundled together with references to its surrounding state, known as the lexical environment. In simpler terms, a closure gives an inner function access to an outer function’s scope even after the outer function has finished executing. 
+Minimal Code Example:
+```javascript
+function outer() {
+  let count = 0;
+  return function inner() {
+    count++;
+    console.log(count);
+  };
+}
+
+const counter = outer();
+counter(); // 1
+counter(); // 2
+```
+Use code with caution.
+
+I> n this snippet, inner "remembers" the count variable because it has a closure over the scope of outer. 
+* 2. Common Interview Questions & Answers
+How do you create private variables?
+* By using closures, you can emulate private state that cannot be accessed directly from the outside. This is often called the Module Pattern.
+* Example: A function that returns an object with increment() and getCount() methods, but keeps the actual counter variable hidden inside the function scope.
+What is the "Loop + setTimeout" problem?
+> A classic trick question involves a for loop with var and setTimeout. Because var is function-scoped, every timeout references the same variable i, which has already finished looping by the time the timeout executes.
+---
+> Solution: Use let (which is block-scoped) or wrap the setTimeout in an Immediately Invoked Function Expression (IIFE) to create a new closure for each iteration.
+---
+> What are the disadvantages of closures?
+The main drawback is memory consumption. Because closures keep variables "alive" even after their parent function returns, they are not immediately garbage-collected. Overuse or poorly managed closures can lead to memory leaks.
+---
+> What is the difference between Scope and Closure?
+Scope is the set of rules that determines where a variable is accessible. Closure is the actual mechanism where a function "captures" its lexical scope to use it later. 
+---
+> 3. Real-World Use Cases
+Interviewers love to hear about practical applications:
+Memoization: Storing results of expensive function calls in a cache variable maintained via closure.
+Currying: Transforming a function with multiple arguments into a sequence of functions, each taking a single argument.
+Event Handlers: Maintaining state for a specific UI component (like a button click count). 

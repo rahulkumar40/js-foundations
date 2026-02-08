@@ -180,3 +180,236 @@ Because the "Architect" always finishes the blueprints first, the "Builder" know
 A "Pro Tip" for your next step:
 Now that you know how the engine finds variables in memory, you might eventually run into a situation where two variables have the same name (one inside a function and one outside). This is called Shadowing.
 
+--
+
+# JavaScript Functions Type – Complete Guide
+
+
+## 1. Function Statement (Function Declaration)
+
+### Definition
+
+A **Function Statement** (also called a **Function Declaration**) is a normal function defined using the `function` keyword and a name.
+
+### Key Feature
+
+* **Hoisted completely** during the memory creation phase.
+* Can be called **before its declaration**.
+
+### Example
+
+```js
+xyz(); // Works due to hoisting
+
+function xyz() {
+    console.log("Function Statement");
+}
+```
+
+---
+
+## 2. Function Expression
+
+### Definition
+
+A **Function Expression** is when a function is assigned to a variable.
+
+### Key Feature
+
+* Not fully hoisted.
+* The variable is hoisted, but the function remains **undefined** until assignment.
+
+### Example
+
+```js
+a(); // Error: a is not a function
+
+var a = function () {
+    console.log("Function Expression");
+};
+```
+
+---
+
+## 3. Anonymous Function
+
+### Definition
+
+A function **without a name** is called an **Anonymous Function**.
+
+### Key Feature
+
+* Used where functions are treated as **values**.
+* Cannot exist alone as a function statement.
+
+### Invalid Example
+
+```js
+function () {   // Syntax Error
+    console.log("Hello");
+}
+```
+
+### Valid Usage (as value)
+
+```js
+var greet = function () {
+    console.log("Anonymous Function");
+};
+
+greet();
+```
+
+---
+
+## 4. Named Function Expression
+
+### Definition
+
+A **Named Function Expression** is a function expression where the function has its own name.
+
+### Key Feature
+
+* The function name is accessible **only inside the function**.
+
+### Example
+
+```js
+var a = function xyz() {
+    console.log("Named Function Expression");
+};
+
+a();      // Works
+xyz();    // Error: xyz is not defined
+```
+
+### Internal Usage
+
+```js
+var a = function xyz() {
+    console.log(xyz); // Accessible here
+};
+```
+
+---
+
+## 5. Parameters vs Arguments
+
+### Parameters
+
+Variables defined in the function declaration.
+
+```js
+function add(param1, param2) {
+    console.log(param1 + param2);
+}
+```
+
+### Arguments
+
+Actual values passed when calling the function.
+
+```js
+add(4, 5); // 4 and 5 are arguments
+```
+
+### Summary
+
+| Term       | Meaning                            |
+| ---------- | ---------------------------------- |
+| Parameters | Variables in function definition   |
+| Arguments  | Values passed during function call |
+
+---
+
+## 6. First-Class Functions (First-Class Citizens)
+
+### Definition
+
+In JavaScript, functions are treated as **first-class citizens**.
+This means functions can be:
+
+1. Stored in variables
+2. Passed as arguments
+3. Returned from other functions
+
+---
+
+### Example 1: Function Stored in Variable
+
+```js
+var greet = function () {
+    console.log("Hello");
+};
+
+greet();
+```
+
+---
+
+### Example 2: Function as Argument
+
+```js
+function sayHello() {
+    console.log("Hello from callback");
+}
+
+function execute(fn) {
+    fn();
+}
+
+execute(sayHello);
+```
+
+---
+
+### Example 3: Function Returning Function
+
+```js
+function outer() {
+    return function inner() {
+        console.log("Returned function");
+    };
+}
+
+var result = outer();
+result();
+```
+
+---
+
+## 7. Why Functions are Called the Heart of JavaScript
+
+Functions are considered the **core of JavaScript** because:
+
+* They enable **modular code**
+* They support **functional programming**
+* They power **callbacks, promises, and async code**
+* They allow **closures and encapsulation**
+
+### Summary Definition (Interview Ready)
+
+> Functions in JavaScript are called first-class citizens because they can be stored in variables, passed as arguments, and returned from other functions.
+
+---
+
+## Quick Interview Recap
+
+| Concept                   | Key Point                    |
+| ------------------------- | ---------------------------- |
+| Function Statement        | Fully hoisted                |
+| Function Expression       | Not fully hoisted            |
+| Anonymous Function        | Function without name        |
+| Named Function Expression | Function with internal name  |
+| Parameters                | Variables in definition      |
+| Arguments                 | Values during call           |
+| First-Class Functions     | Functions behave like values |
+
+---
+
+If you want, I can also:
+
+* Convert this into a **professional PPT**
+* Create a **one-page interview cheat sheet**
+* Add **advanced topics** (IIFE, Arrow functions, callbacks, closures, etc.)
+* Prepare **JavaScript interview questions with answers**.
