@@ -497,3 +497,28 @@ Shape changes → de-optimization.
 “JavaScript code is executed by a JavaScript engine like V8. The engine parses the code into an AST, converts it into bytecode using an interpreter, and then optimizes frequently used code using a JIT compiler. The runtime environment, such as the browser or Node.js, provides additional APIs and an event loop. The event loop manages asynchronous operations using the call stack, microtask queue, and macrotask queue.”
 
 ---
+## JavaScript Engine Architecture (Deep Explanation)
+
+> A JavaScript engine architecture defines how JavaScript code is processed internally—from raw source code to optimized machine instructions.
+
+> At a high level, every modern engine (like V8, SpiderMonkey, JavaScriptCore) follows a pipeline-based architecture.
+
+## High-Level Architecture Overview
+```
+JavaScript Source Code
+        ↓
+      Parser
+        ↓
+        AST
+        ↓
+    Interpreter
+        ↓
+     Bytecode
+        ↓
+   JIT Compiler
+        ↓
+Optimized Machine Code
+        ↓
+   Execution + GC
+```
+
