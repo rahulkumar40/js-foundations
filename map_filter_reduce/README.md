@@ -399,3 +399,185 @@ Because they are closely related and often asked together.
 ---
 
 
+# JavaScript `reduce()` Interview Questions
+
+## ⭐ Basic Level
+
+### 1. What does `reduce()` do?
+
+**Answer:**
+It processes each element of an array and returns a **single accumulated value**.
+
+Example:
+
+```js
+[1,2,3,4].reduce((acc, curr) => acc + curr, 0);
+// Output: 10
+```
+
+---
+
+### 2. What are the parameters of `reduce()` callback?
+
+**Answer:**
+
+```js
+array.reduce((accumulator, currentValue, index, array) => {}, initialValue)
+```
+
+* `accumulator` → result from previous iteration
+* `currentValue` → current element
+* `index` → current index (optional)
+* `array` → original array (optional)
+
+---
+
+### 3. What happens if we don’t provide an initial value?
+
+**Answer:**
+
+* First array element becomes `acc`
+* Iteration starts from second element
+
+Example:
+
+```js
+[1,2,3].reduce((acc, curr) => acc + curr);
+// acc = 1, curr = 2
+```
+
+---
+
+## ⭐⭐ Intermediate Level
+
+### 4. Difference between `map()` and `reduce()`
+
+| Feature | map()                  | reduce()                       |
+| ------- | ---------------------- | ------------------------------ |
+| Output  | New array              | Single value (or object/array) |
+| Purpose | Transform each element | Aggregate data                 |
+| Example | Double numbers         | Sum numbers                    |
+
+---
+
+### 5. Write a `reduce()` to count occurrences
+
+```js
+const arr = ["a","b","a","c","b","a"];
+
+const result = arr.reduce((acc, curr) => {
+    acc[curr] = (acc[curr] || 0) + 1;
+    return acc;
+}, {});
+
+console.log(result);
+// { a:3, b:2, c:1 }
+```
+
+---
+
+### 6. Find the maximum number using `reduce()`
+
+```js
+const arr = [5,2,9,1,7];
+
+const max = arr.reduce((acc, curr) => {
+    return curr > acc ? curr : acc;
+});
+
+console.log(max); // 9
+```
+
+---
+
+## ⭐⭐⭐ Advanced Level
+
+### 7. Convert array of objects into a grouped object
+
+```js
+const users = [
+  {name:"A", age:20},
+  {name:"B", age:21},
+  {name:"C", age:20}
+];
+
+const grouped = users.reduce((acc, curr) => {
+    acc[curr.age] = acc[curr.age] || [];
+    acc[curr.age].push(curr.name);
+    return acc;
+}, {});
+
+console.log(grouped);
+// {20:["A","C"], 21:["B"]}
+```
+
+---
+
+### 8. Implement `map()` using `reduce()`
+
+```js
+const arr = [1,2,3];
+
+const result = arr.reduce((acc, curr) => {
+    acc.push(curr * 2);
+    return acc;
+}, []);
+
+console.log(result); // [2,4,6]
+```
+
+---
+
+### 9. Flatten a nested array using `reduce()`
+
+```js
+const arr = [1, [2,3], [4,[5]]];
+
+const flat = arr.reduce((acc, curr) => {
+    return acc.concat(
+        Array.isArray(curr) ? curr : [curr]
+    );
+}, []);
+
+console.log(flat);
+// [1,2,3,4,[5]]
+```
+
+---
+
+### 10. Chain `map()` and `filter()` using only `reduce()`
+
+Goal:
+
+* Keep even numbers
+* Multiply by 2
+
+```js
+const arr = [1,2,3,4,5];
+
+const result = arr.reduce((acc, curr) => {
+    if(curr % 2 === 0){
+        acc.push(curr * 2);
+    }
+    return acc;
+}, []);
+
+console.log(result); // [4,8]
+```
+
+---
+
+## ⚠️ Common Mistakes with `reduce()`
+
+1. Not returning `acc`
+2. Forgetting initial value
+3. Mutating accumulator incorrectly
+4. Using `reduce()` when `map()` or `filter()` is clearer
+
+---
+
+
+---
+
+
+
