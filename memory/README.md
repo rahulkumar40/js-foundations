@@ -1,4 +1,4 @@
-#vgarbage collector
+# garbage collector
 > A garbage collector (GC) in JavaScript (running in a browser or Node.js) is an automatic memory management system that frees up memory occupied by objects that are no longer used or needed by the program. It operates in the background to prevent memory leaks and optimize performance. 
 ## How Garbage Collection Works
 * Instead of requiring developers to manually free memory (like in C/C++), the JavaScript engine uses a "mark-and-sweep" algorithm to identify and reclaim memory. 

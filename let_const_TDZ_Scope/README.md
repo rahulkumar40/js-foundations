@@ -105,7 +105,7 @@ The **Scope Chain** is the hierarchical process the JavaScript engine uses to re
 
 ---
 
-## 3. Lexical Environment
+# 3. Lexical Environment
 
 The scope chain is built based on **Lexical Scoping**.
 
