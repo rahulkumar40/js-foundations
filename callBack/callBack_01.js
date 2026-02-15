@@ -12,6 +12,7 @@ setTimeout(function(){
     console.log("Timer ")
 }, 5000)
 
+// call back function which will exceuted after 5 sec 
 
 // function (){console.log("Timer ")} is callback function which pass as a argument 
 // it save inside setTimeout and when its set time complement then it execute the function which get as param  
