@@ -341,10 +341,177 @@ Since you are preparing for tech roles:
 
 ---
 
-Here are **JavaScript Promise interview questions** arranged from **basic to advanced**.
-These are the types of questions commonly asked in **frontend and full-stack interviews**.
+Your question:
+
+> What is the default time of a Promise in JavaScript?
+> Does it get rejected after a fixed time decided by the JS engine?
+
+Let’s correct the concept clearly.
 
 ---
+
+# Correct Concept: Promise Timing in JavaScript
+
+## 1. There is **NO default timeout** for a Promise
+
+A **JavaScript Promise does not have any built-in time limit**.
+
+- The JavaScript engine **does not automatically reject** a promise.
+- A promise stays in the **pending state forever** until:
+
+  - `resolve()` is called, or
+  - `reject()` is called.
+
+So this is wrong:
+
+> Promise will be rejected after a fixed time decided by JS engine ❌
+
+Correct idea:
+
+> Promise stays pending until the async operation finishes or fails. ✅
+
+---
+
+## 2. Who decides when a promise resolves or rejects?
+
+The **asynchronous operation** decides it.
+
+Examples:
+
+### Example 1: setTimeout
+
+```js
+new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("Done");
+  }, 5000);
+});
+```
+
+Here:
+
+- Promise resolves after **5 seconds**
+- Because **you defined the time**
+
+---
+
+### Example 2: fetch API
+
+```js
+fetch("https://api.github.com/users");
+```
+
+- Promise resolves when the server responds.
+- Time depends on:
+
+  - Network speed
+  - Server response time
+
+- Not decided by JavaScript engine.
+
+---
+
+## 3. Promise that never settles
+
+```js
+new Promise((resolve, reject) => {
+  // nothing here
+});
+```
+
+This promise:
+
+- Will stay **pending forever**
+- It will never resolve or reject.
+
+---
+
+## 4. If you want a timeout, you must create it yourself
+
+Example: reject after 3 seconds
+
+```js
+function timeoutPromise() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject("Timed out");
+    }, 3000);
+  });
+}
+```
+
+---
+
+## 5. Real-world example: fetch with timeout
+
+```js
+function fetchWithTimeout(url, time) {
+  return Promise.race([
+    fetch(url),
+    new Promise((_, reject) =>
+      setTimeout(() => reject("Request timed out"), time)
+    ),
+  ]);
+}
+
+fetchWithTimeout("https://api.github.com", 3000)
+  .then((res) => console.log("Success"))
+  .catch((err) => console.log(err));
+```
+
+Here:
+
+- If fetch takes more than 3 seconds
+- Timeout promise wins
+- Request is rejected
+
+---
+
+## 6. Interview-style answer
+
+If interviewer asks:
+
+**“What is the default timeout of a promise?”**
+
+You should say:
+
+> JavaScript promises do not have any default timeout.
+> They remain in the pending state until they are either resolved or rejected.
+> Any timeout behavior must be implemented manually by the developer.
+
+---
+
+## Key Point to Remember
+
+- Promise has **no built-in time limit**
+- It depends on the **async operation**
+- You must create timeouts manually
+
+---
+
+### 3. API failure (like fetch)
+
+> With APIs, rejection depends on network-level errors.
+
+- Important rule about fetch()
+
+- fetch() only rejects when:
+
+- No internet connection
+
+- DNS failure
+
+- Server not reachable
+
+- Request blocked
+
+- But it does NOT reject for:
+
+- 404 error
+
+- 500 error
+
+- Because the server still responded.
 
 # JavaScript Promise Interview Questions
 
