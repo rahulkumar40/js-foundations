@@ -6,8 +6,23 @@ It represents the **future result** of an operation.
 
 A promise has two main things:
 
-* **State**
-* **Result (data)**
+- **State**
+- **Result (data)**
+
+---
+
+![alt text](image.png)
+
+> A Promise always starts in the pending state.
+
+- It can then move to only one of the two states:
+
+- Fulfilled → operation successful
+
+- Rejected → operation failed
+
+> Important rule:
+> \*Once a promise is fulfilled or rejected, its state cannot change again.
 
 ---
 
@@ -33,7 +48,7 @@ Promise {
 ## 3. Your Example (Corrected Explanation)
 
 ```js
-const cart = ["shoes","pants","kurta"];
+const cart = ["shoes", "pants", "kurta"];
 ```
 
 User wants to:
@@ -46,16 +61,16 @@ User wants to:
 ## 4. Problem with Callback Approach
 
 ```js
-createOrder(cart, function(orderId){
-    proceedToPayment(orderId);
+createOrder(cart, function (orderId) {
+  proceedToPayment(orderId);
 });
 ```
 
 ### Why this is a problem
 
-* `createOrder` takes time (API call)
-* `proceedToPayment` also takes time
-* If we keep nesting callbacks, code becomes messy
+- `createOrder` takes time (API call)
+- `proceedToPayment` also takes time
+- If we keep nesting callbacks, code becomes messy
 
 This leads to:
 
@@ -67,12 +82,12 @@ Pyramid of Doom
 Example:
 
 ```js
-createOrder(cart, function(orderId){
-    proceedToPayment(orderId, function(){
-        showSummary(function(){
-            updateWallet();
-        });
+createOrder(cart, function (orderId) {
+  proceedToPayment(orderId, function () {
+    showSummary(function () {
+      updateWallet();
     });
+  });
 });
 ```
 
@@ -113,15 +128,15 @@ JavaScript automatically updates the promise.
 ## 6. Handling the Promise
 
 ```js
-promise.then(function(orderId){
-    proceedToPayment(orderId);
+promise.then(function (orderId) {
+  proceedToPayment(orderId);
 });
 ```
 
 ### What `.then()` does
 
-* It waits for the promise to be fulfilled.
-* When result comes, it executes the function.
+- It waits for the promise to be fulfilled.
+- When result comes, it executes the function.
 
 So:
 
@@ -132,9 +147,9 @@ So:
 
 This ensures:
 
-* Correct execution order
-* No timing issues
-* Cleaner code
+- Correct execution order
+- No timing issues
+- Cleaner code
 
 ---
 
@@ -142,11 +157,11 @@ This ensures:
 
 Promises:
 
-* Avoid callback hell
-* Improve readability
-* Handle errors better
-* Provide chaining
-* Work with async/await
+- Avoid callback hell
+- Improve readability
+- Handle errors better
+- Provide chaining
+- Work with async/await
 
 ---
 
@@ -173,8 +188,8 @@ fulfilled → orderId
 Then:
 
 ```js
-promise.then(function(orderId){
-    proceedToPayment(orderId);
+promise.then(function (orderId) {
+  proceedToPayment(orderId);
 });
 ```
 
@@ -188,16 +203,16 @@ Payment starts only after order creation.
 
 ```js
 function createOrder(cart) {
-    return new Promise(function(resolve, reject) {
-        if (!cart.length) {
-            reject("Cart is empty");
-        }
+  return new Promise(function (resolve, reject) {
+    if (!cart.length) {
+      reject("Cart is empty");
+    }
 
-        setTimeout(() => {
-            const orderId = "12345";
-            resolve(orderId);
-        }, 2000);
-    });
+    setTimeout(() => {
+      const orderId = "12345";
+      resolve(orderId);
+    }, 2000);
+  });
 }
 ```
 
@@ -205,12 +220,12 @@ function createOrder(cart) {
 
 ```js
 createOrder(cart)
-    .then(function(orderId){
-        return proceedToPayment(orderId);
-    })
-    .catch(function(err){
-        console.log(err);
-    });
+  .then(function (orderId) {
+    return proceedToPayment(orderId);
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
 ```
 
 ---
@@ -234,11 +249,10 @@ Your original idea, but corrected:
 > Initially, it is in the **pending state** with an **undefined result**.
 > After the asynchronous operation completes, the promise becomes either:
 >
-> * **fulfilled** with a value, or
-> * **rejected** with an error.
+> - **fulfilled** with a value, or
+> - **rejected** with an error.
 >
 > Using `.then()`, we can handle the result once the promise is fulfilled.
 > This avoids callback hell and makes the code cleaner and more reliable.
 
 ---
-
