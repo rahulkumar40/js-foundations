@@ -256,3 +256,328 @@ Your original idea, but corrected:
 > This avoids callback hell and makes the code cleaner and more reliable.
 
 ---
+
+# What you should practice.
+
+### 1. Write your own Promise functions
+
+Example tasks:
+
+- Fake API for login
+- Fake payment system
+- Fake data fetch
+
+```js
+function loginUser(username) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (username === "Rahul") {
+        resolve("Login successful");
+      } else {
+        reject("User not found");
+      }
+    }, 2000);
+  });
+}
+
+loginUser("Rahul")
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err));
+```
+
+---
+
+### 2. Promise Chaining (very important)
+
+Practice this flow:
+
+```
+createOrder → payment → summary → updateWallet
+```
+
+---
+
+### 3. Learn these 4 Promise methods
+
+You must know these for interviews:
+
+| Method               | Use                                      |
+| -------------------- | ---------------------------------------- |
+| Promise.all()        | Run tasks in parallel, fail if one fails |
+| Promise.allSettled() | Wait for all, even if some fail          |
+| Promise.race()       | First finished promise wins              |
+| Promise.any()        | First successful promise wins            |
+
+---
+
+### 4. Convert Promise code to async/await
+
+Example:
+
+```js
+async function process() {
+  try {
+    const orderId = await createOrder(cart);
+    const payment = await proceedToPayment(orderId);
+    console.log(payment);
+  } catch (err) {
+    console.log(err);
+  }
+}
+```
+
+---
+
+## Interview-level learning path for you
+
+Since you are preparing for tech roles:
+
+1. Callbacks
+2. Promises
+3. Promise chaining
+4. Promise methods (all, race, etc.)
+5. async/await
+6. Event loop deep dive
+
+---
+
+Here are **JavaScript Promise interview questions** arranged from **basic to advanced**.
+These are the types of questions commonly asked in **frontend and full-stack interviews**.
+
+---
+
+# JavaScript Promise Interview Questions
+
+## Basic Level (Very common in interviews)
+
+### 1. What is a Promise in JavaScript?
+
+**Expected answer:**
+A Promise is an object that represents the eventual completion or failure of an asynchronous operation and its resulting value.
+
+---
+
+### 2. What are the three states of a Promise?
+
+**Answer:**
+
+1. Pending
+2. Fulfilled
+3. Rejected
+
+---
+
+### 3. What is the difference between synchronous and asynchronous code?
+
+**Expected idea:**
+
+- Synchronous: runs line by line.
+- Asynchronous: runs in the background and completes later.
+
+---
+
+### 4. How do you create a Promise?
+
+```js
+const promise = new Promise((resolve, reject) => {
+  resolve("Success");
+});
+```
+
+---
+
+### 5. What are `.then()` and `.catch()` used for?
+
+**Answer:**
+
+- `.then()` handles success.
+- `.catch()` handles errors.
+
+---
+
+### 6. What is promise chaining?
+
+```js
+createOrder(cart)
+  .then((orderId) => proceedToPayment(orderId))
+  .then((payment) => showSummary(payment))
+  .catch((err) => console.log(err));
+```
+
+---
+
+## Intermediate Level (Very important)
+
+### 7. What is the difference between callback and Promise?
+
+| Callback              | Promise                    |
+| --------------------- | -------------------------- |
+| Nested functions      | Chained functions          |
+| Callback hell         | Cleaner code               |
+| Hard to manage errors | Centralized error handling |
+
+---
+
+### 8. What does `fetch()` return?
+
+**Answer:**
+A Promise that resolves to a **Response object**.
+
+---
+
+### 9. What is the difference between `.then(console.log)` and `.then(() => console.log())`?
+
+**Answer:**
+
+- `.then(console.log)` → logs the resolved value.
+- `.then(() => console.log())` → logs nothing because no value is passed.
+
+---
+
+### 10. What happens if a promise is rejected and there is no `.catch()`?
+
+**Answer:**
+It causes an **unhandled promise rejection error**.
+
+---
+
+### 11. What is the difference between `resolve()` and `reject()`?
+
+| resolve()                  | reject()                  |
+| -------------------------- | ------------------------- |
+| Marks promise as fulfilled | Marks promise as rejected |
+| Sends success value        | Sends error               |
+
+---
+
+## Promise Methods (Very common in interviews)
+
+### 12. What is `Promise.all()`?
+
+Runs multiple promises in parallel and:
+
+- Resolves when all succeed
+- Rejects if any one fails
+
+Example:
+
+```js
+Promise.all([p1, p2, p3]).then((results) => console.log(results));
+```
+
+---
+
+### 13. What is `Promise.race()`?
+
+Returns the result of the **first promise that settles** (success or failure).
+
+---
+
+### 14. What is `Promise.allSettled()`?
+
+Waits for all promises to finish, regardless of success or failure.
+
+---
+
+### 15. What is `Promise.any()`?
+
+Returns the **first fulfilled promise**.
+Ignores rejected ones unless all fail.
+
+---
+
+## Coding Questions (Very likely)
+
+### 16. Convert callback to promise
+
+Callback:
+
+```js
+getData(function (data) {
+  console.log(data);
+});
+```
+
+Convert to promise-based version.
+
+---
+
+### 17. Write a function that returns a promise
+
+That resolves after 2 seconds.
+
+Expected:
+
+```js
+function delay() {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve("Done"), 2000);
+  });
+}
+```
+
+---
+
+### 18. What is the output of this code?
+
+```js
+console.log("Start");
+
+setTimeout(() => console.log("Timeout"), 0);
+
+Promise.resolve().then(() => console.log("Promise"));
+
+console.log("End");
+```
+
+**Correct output:**
+
+```
+Start
+End
+Promise
+Timeout
+```
+
+---
+
+## Advanced Level (Top interviews)
+
+### 19. What is the difference between async/await and promises?
+
+- async/await is syntactic sugar over promises.
+- Makes asynchronous code look synchronous.
+
+---
+
+### 20. What is the microtask queue?
+
+- Promises go into the **microtask queue**.
+- It has higher priority than the callback queue.
+
+---
+
+### 21. Can a promise change state after being fulfilled?
+
+**Answer:**
+No. A promise is **immutable after settlement**.
+
+---
+
+### 22. What happens if you return a promise inside `.then()`?
+
+It creates a **promise chain** and waits for it.
+
+---
+
+## Real Interview Coding Question
+
+Write a function that:
+
+1. Creates an order
+2. Proceeds to payment
+3. Shows summary
+
+Using promises.
+
+---
