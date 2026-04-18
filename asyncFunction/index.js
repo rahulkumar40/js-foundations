@@ -24,3 +24,20 @@ const data = getData();
 console.log(data)
 
 // async and await are used to handle promises . 
+
+
+// how promise and async await work 
+
+const p = new Promise((resolve,reject)=>{
+    resolve("Promise Resolved value ")
+})
+
+// await can only be used inside an async function 
+async function handlePromise() {
+    const val = await p;
+    console.log(val);
+}
+// function getDataa(){
+//     p.then(res)=console.log((res));
+// }
+// getDataa()
